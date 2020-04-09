@@ -8,8 +8,7 @@ var options = {
     useNewUrlParser: true,
     useUnifiedTopology: true
   };
-const db = 'mongodb+srv://merzouk:merzouk@cluster0-nu7un.mongodb.net/eventsdb?retryWrites=true&w=majority'
-
+const db = process.env.DB
 
 mongoose.connect(db, options, (err) => {
     if(err)
