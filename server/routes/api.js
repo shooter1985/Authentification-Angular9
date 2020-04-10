@@ -1,5 +1,6 @@
 const express = require('express');
 const jwt = require('jsonwebtoken')
+const tokenVerify = require('../middlewarefunction/verifytoken')
 
 const router = express.Router();
 
@@ -124,7 +125,7 @@ router.get('/events', (req, res) => {
      res.json(events);
 });
 
-router.get('/special', (req, res) => {
+router.get('/special', tokenVerify.verifiedToken ,(req, res) => {
     let events = [
         {
             "_id": "1",
