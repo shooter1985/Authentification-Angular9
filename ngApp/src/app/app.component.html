@@ -16,8 +16,9 @@
     </ul>
 
     <ul class="navbar-nav">
-        <a class="nav-link" routerLink="/login" routerLinkActive="active">Login <span class="sr-only">(current)</span></a>
-        <a class="nav-link" routerLink="/register" routerLinkActive="active">Register <span class="sr-only">(current)</span></a>
+        <a class="nav-link" *ngIf="!isloggedIN()" routerLink="/login" routerLinkActive="active">Login <span class="sr-only">(current)</span></a>
+        <a class="nav-link"  *ngIf="!isloggedIN()"routerLink="/register" routerLinkActive="active">Register <span class="sr-only">(current)</span></a>
+        <button class="btn btn-link text-white" *ngIf="isloggedIN()" routerLinkActive="active" (click)= "logout()">Logout <span class="sr-only">(current)</span></button>
     </ul>
   </div>
 </nav>
