@@ -1,6 +1,9 @@
 const express = require('express');
 const jwt = require('jsonwebtoken')
+const bcrypt = require('bcrypt')
 const tokenVerify = require('../middlewarefunction/verifytoken')
+
+let saltRounds = parseInt(process.env.SaltRounds) 
 
 const router = express.Router();
 
@@ -21,20 +24,43 @@ mongoose.connect(db, options, (err) => {
         console.log('connnected to mongodb')
 })
 
+
+
 router.get('/', (req, res) => {
     res.send("From api router");
 });
 
 router.post('/register', (req, res) => {
     let userData = req.body;
-    let user = new User(userData)
-    user.save((err, registeredUser) => {
-        if (err) {
-            console.log(err)
+    // hashage du password
+    User.findOne({email:userData.email}, (err, result) => {
+        if(err) {
+            res.status(401).send("Erreur Serveur");
         } else {
-            let payload = {subject: registeredUser._id}
-            let token = jwt.sign(payload, process.env.SECRETKEY)
-            res.status(200).send({token,registeredUser});
+            if(result)
+            {
+                res.status(401).send('Email déja pris !!');
+            } else {
+                bcrypt.genSalt(saltRounds, (err, salt) => {
+                    bcrypt.hash(userData.password, salt, function(err, hash) {
+                        if(err) {
+                            res.status(401).send('Register Cancel, retry!!!');
+                        }else {
+                            userData.password = hash
+                            let user = new User(userData)
+                            user.save((err, registeredUser) => {
+                                if (err) {
+                                    res.status(401).send('Erreur du serveur!!');
+                                } else {
+                                    let payload = {subject: registeredUser._id}
+                                    let token = jwt.sign(payload, process.env.SECRETKEY)
+                                    res.status(200).send({token,registeredUser:{email: registeredUser.email,_id: registeredUser._id}});
+                                }
+                            })
+                        }
+                    });
+                });
+            }
         }
     })
 });
@@ -46,13 +72,17 @@ router.post('/login', (req, res) => {
             console.log(err);
         } else {
             if(!user) {
-                res.status(401).send ('Invalid Email');
-            } else if(user.password !== userData.password){
-                res.status(401).send ('Invalid Password');
+                res.status(401).send ('Invalid Email')
             } else {
-                let payload = {subject: user._id}
-                let token = jwt.sign(payload, process.env.SECRETKEY)
-                res.status(200).send ({token,user});
+                bcrypt.compare(userData.password, user.password, (err, result) => {
+                    if(result) {
+                        let payload = {subject: user._id}
+                        let token = jwt.sign(payload, process.env.SECRETKEY)
+                        res.status(200).send ({token,user});
+                    } else {
+                        res.status(401).send ('Invalid Password');
+                    } 
+                });
             }
         }
     })

@@ -1,10 +1,10 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <a class="navbar-brand" href="#">Eventhub</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">Angular9</a>
   <button class="navbar-toggler" type="button" data-target="#my-nav" data-toggle="collapse" aria-controls="my-nav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div id="my-nav" class="collapse navbar-collapse">
+  <div id="my-nav" class="collapse navbar-collapse font-weight-bold text-uppercase">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
         <a class="nav-link" routerLink="events" routerLinkActive="active">Events <span class="sr-only">(current)</span></a>
@@ -16,9 +16,19 @@
     </ul>
 
     <ul class="navbar-nav">
-        <a class="nav-link" *ngIf="!isloggedIN()" routerLink="/login" routerLinkActive="active">Login <span class="sr-only">(current)</span></a>
-        <a class="nav-link"  *ngIf="!isloggedIN()"routerLink="/register" routerLinkActive="active">Register <span class="sr-only">(current)</span></a>
-        <button class="btn btn-link text-white" *ngIf="isloggedIN()" routerLinkActive="active" (click)= "logout()">Logout <span class="sr-only">(current)</span></button>
+        <a class="nav-link font-weight-bold" *ngIf="!isloggedIN()" routerLink="/login" routerLinkActive="active"> 
+          <svg class="bi bi-person-fill  text-success" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/>
+          </svg>
+          Login <span class="sr-only">(current)</span>
+        </a>
+        <a class="nav-link font-weight-bold"  *ngIf="!isloggedIN()"routerLink="/register" routerLinkActive="active">Register <span class="sr-only">(current)</span></a>
+        <a class="nav-link text-white cursor-pointer" role="button" *ngIf="isloggedIN()" routerLinkActive="active" (click)= "logout()">Logout <span class="sr-only">(current)</span>
+          <svg class="bi bi-power text-danger font-weight-bold" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M5.578 4.437a5 5 0 104.922.044l.5-.866a6 6 0 11-5.908-.053l.486.875z" clip-rule="evenodd"/>
+            <path fill-rule="evenodd" d="M7.5 8V1h1v7h-1z" clip-rule="evenodd"/>
+          </svg>
+        </a>
     </ul>
   </div>
 </nav>
