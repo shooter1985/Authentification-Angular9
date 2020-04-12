@@ -1,5 +1,13 @@
 <div class="row mt-5">
-    <div class="col-md-6 mx-auto">
+    <div class="col-md-12 mx-auto" *ngIf="msgError">
+        <div class="alert alert-danger" role="alert">
+            <strong> {{messageError}} </strong>
+            <button type="button" class="close" (click)="alertDissmiss()" aria-label="Close">
+                <span aria-hidden="true"> &times;</span>
+            </button>
+        </div>
+    </div>
+    <div class="col-md-12 mx-auto">
         <div class="card rounded-0">
             <div class="card-header">
                 <h3 class="mb-0">Login</h3>

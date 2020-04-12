@@ -2,6 +2,7 @@ const express = require('express');
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const tokenVerify = require('../middlewarefunction/verifytoken')
+const paginate = require('jw-paginate')
 
 let saltRounds = parseInt(process.env.SaltRounds) 
 
@@ -54,7 +55,7 @@ router.post('/register', (req, res) => {
                                 } else {
                                     let payload = {subject: registeredUser._id}
                                     let token = jwt.sign(payload, process.env.SECRETKEY)
-                                    res.status(200).send({token,registeredUser:{email: registeredUser.email,_id: registeredUser._id}});
+                                    res.status(200).send({token,registeredUser:{email: registeredUser.email,_id: registeredUser._id, nom:registeredUser.nom}});
                                 }
                             })
                         }
@@ -78,7 +79,7 @@ router.post('/login', (req, res) => {
                     if(result) {
                         let payload = {subject: user._id}
                         let token = jwt.sign(payload, process.env.SECRETKEY)
-                        res.status(200).send ({token,user});
+                        res.status(200).send ({token,user:{email: user.email,_id: user._id, nom:user.nom}});
                     } else {
                         res.status(401).send ('Invalid Password');
                     } 
@@ -89,7 +90,7 @@ router.post('/login', (req, res) => {
 });
 
 router.get('/events', (req, res) => {
-    let events = [
+    let items = [
         {
             "_id": "1",
             "name": "Auto Expo",
@@ -149,10 +150,34 @@ router.get('/events', (req, res) => {
             "name": "Auto Expo",
             "description": "Lorem ipsum",
             "date": "2014-02-20T14:23:32.511Z"
+        },
+        {
+            "_id": "11",
+            "name": "Auto Expo",
+            "description": "Lorem ipsum",
+            "date": "2014-02-20T14:23:32.511Z"
+        },
+        {
+            "_id": "12",
+            "name": "Auto Expo",
+            "description": "Lorem ipsum",
+            "date": "2014-02-20T14:23:32.511Z"
         }
     ];
+   
+    const page = parseInt(req.query.page) || 1;
 
-     res.json(events);
+    // get pager object for specified page
+    const pager = paginate(items.length, page);
+
+    pager.totalItems = 5
+    pager.pageSize = 5
+    // get page of items from items array
+    const events = items.slice(pager.startIndex, pager.endIndex + 1);
+
+    // return pager object and current page of items
+    console.log(pager)
+    return res.json({ pager, events });
 });
 
 router.get('/special', tokenVerify.verifiedToken ,(req, res) => {
