@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const tokenVerify = require('../middlewarefunction/verifytoken')
 const paginate = require('jw-paginate')
+const mongoosePaginate = require('mongoose-paginate')
 
 let saltRounds = parseInt(process.env.SaltRounds) 
 
@@ -170,8 +171,6 @@ router.get('/events', (req, res) => {
     // get pager object for specified page
     const pager = paginate(items.length, page);
 
-    pager.totalItems = 5
-    pager.pageSize = 5
     // get page of items from items array
     const events = items.slice(pager.startIndex, pager.endIndex + 1);
 
@@ -180,6 +179,19 @@ router.get('/events', (req, res) => {
     return res.json({ pager, events });
 });
 
+/**
+ * querying for `all` {} items in `MyModel`
+ * paginating by second page, 10 items per page (10 results, page 2)
+ 
+
+MyModel.paginate({}, 2, 10, function(error, pageCount, paginatedResults) {
+    if (error) {
+      console.error(error);
+    } else {
+      console.log('Pages:', pageCount);
+      console.log(paginatedResults);
+    }
+  }**/
 router.get('/special', tokenVerify.verifiedToken ,(req, res) => {
     let events = [
         {
