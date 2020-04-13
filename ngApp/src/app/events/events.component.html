@@ -1,15 +1,27 @@
 <div class="row mt-5">
-    <div class="col-md-4 mb-3" *ngFor="let event of events">
-        <div class="card text-center">
-            <div class="card-body">
-                <h5 class="card-title">{{event.name}}</h5>
-                <p class="card-text">{{event.description}}</p>
-                <a href="" class="btn btn-primary">Buy Tickets</a>
+    
+    <div class="col-md-4 mb-3" style="cursor: pointer;" *ngFor="let event of events" routerLink>
+        <div class="card ovf-hidden">
+            <div class="view overlay">
+              <img class="card-img-top" src="./assets/images/event1.jpeg" alt="Card image cap">
             </div>
-            <div class="card-footer text-muted">
-                {{event.date | date : 'short'}}
+
+            <div class="card-body">
+              <!-- Title -->
+              <h5 class="card-title font-weight-bold">{{event.name}}</h5>
+              <hr>
+              <!-- Text -->
+              <p class="card-text">{{event.date | date : 'dd MMMM y, h:mm a'}}</p>
+              <a class="link-text text-right" routerLink>
+                <h5>Read more <svg class="bi bi-chevron-double-right" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 01.708 0l6 6a.5.5 0 010 .708l-6 6a.5.5 0 01-.708-.708L9.293 8 3.646 2.354a.5.5 0 010-.708z" clip-rule="evenodd"/>
+                    <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 01.708 0l6 6a.5.5 0 010 .708l-6 6a.5.5 0 01-.708-.708L13.293 8 7.646 2.354a.5.5 0 010-.708z" clip-rule="evenodd"/>
+                  </svg></h5>
+              </a>
             </div>
         </div>
+
+
     </div>
 
     <div class="col-md-10 mx-auto mt-5">

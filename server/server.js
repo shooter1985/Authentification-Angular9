@@ -4,6 +4,7 @@ const cors  = require('cors')
 const dotEnv = require('dotenv').config()
 
 const api = require('./routes/api')
+const event = require('./routes/eventroute')
 
 const PORT = process.env.PORT;
 
@@ -12,7 +13,8 @@ app.use(cors());
 
 app.use(bodyParser.json());
 app.use('/api',api);
-
+app.use('/event',event);
+ 
 app.get('/', (req, res) => {
     res.send("hello from the server");
 });
