@@ -11,23 +11,6 @@ const router = express.Router();
 
 const User = require('../models/user')
 
-const mongoose = require('mongoose')
-
-var options = {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  };
-const db = process.env.DB
-
-mongoose.connect(db, options, (err) => {
-    if(err)
-        console.log(`Error ! ${err}`)
-    else
-        console.log('connnected to mongodb')
-})
-
-
-
 router.get('/', (req, res) => {
     res.send("From api router");
 });

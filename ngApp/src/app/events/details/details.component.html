@@ -1,0 +1,98 @@
+<div class="row mt-4">
+    <div class="col-md-10 mx-auto">
+        <div class="jumbotron pt-1 pb-1">
+            <h1 class=" mx-auto text-center">{{eventDetail.name}}</h1>
+            <hr class="">
+            <p>
+                Publié le {{eventDetail.createdAt | date : 'dd MMM yy'}}, dernière mise à jour le
+                {{eventDetail.updatedAt | date : 'dd MM yy'}}
+            </p>
+        </div>
+    </div>
+</div>
+<div class="row mt-1">
+    <div class="col-md-8 mx-auto">
+        <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img class="d-block w-100" src="./assets/images/event1.jpeg" alt="First slide">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-3">
+    <div class="col-8">
+        <div class="card text-white bg-dark">
+            <div class="card-header">Description</div>
+            <div class="card-body">
+                <p class="card-text blockquote">
+                    {{eventDetail.description}}
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-info mb-3">
+            <h3 class="card-header font-weight-bold">INFOS PRATIQUES</h3>
+            <div class="card-body bg-light text-dark">
+                <div class="row">
+                    <div class="col-md-2 my-auto">
+                        <svg class="bi bi-info-square-fill" width="2em" height="2em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M0 2a2 2 0 012-2h12a2 2 0 012 2v12a2 2 0 01-2 2H2a2 2 0 01-2-2V2zm8.93 4.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                    <div class="col-md-10">
+                        <p class="card-text">
+                            {{eventDetail.infoPratique}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mt-4 mb-3">
+    <div class="col-md-8">
+        <div class="card text-white border-success bg-info mb-3">
+            <h4 class="card-header font-weight-bold">Nos Tarifs</h4>
+            <div class="card-body bg-light text-dark">
+                <div class="row">
+                    <div class="col-md-2 my-auto">
+                        <svg class="bi bi-credit-card" width="2em" height="2em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M14 3H2a1 1 0 00-1 1v8a1 1 0 001 1h12a1 1 0 001-1V4a1 1 0 00-1-1zM2 2a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V4a2 2 0 00-2-2H2z" clip-rule="evenodd"/>
+                            <rect width="3" height="3" x="2" y="9" rx="1"/>
+                            <path d="M1 5h14v2H1z"/>
+                        </svg>
+                    </div>
+                    <div class="col-md-10">
+                        <p class="card-text">
+                            {{eventDetail.tarif}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white border-success bg-info mb-3">
+            <h4 class="card-header font-weight-bold">Localisation</h4>
+            <div class="card-body bg-light text-dark">
+                <div class="row">
+                    <div class="col-md-2 my-auto">
+                        <svg class="bi bi-geo-alt" width="2em" height="2em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M8 16s6-5.686 6-10A6 6 0 002 6c0 4.314 6 10 6 10zm0-7a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                    <div class="col-md-10">
+                        <p class="card-text">
+                            {{eventDetail.localisation}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>

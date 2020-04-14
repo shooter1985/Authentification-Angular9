@@ -7,21 +7,6 @@ const router = express.Router();
 
 const Event = require('../models/events')
 
-const mongoose = require('mongoose')
-
-var options = {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  };
-const db = process.env.DB
-
-mongoose.connect(db, options, (err) => {
-    if(err)
-        console.log(`Error ! ${err}`)
-    else
-        console.log('connnected to mongodb')
-})
-
 router.get('/events', (req, res) => {
     
     const pageq = parseInt(req.query.page) || 1;
@@ -35,14 +20,18 @@ router.get('/events', (req, res) => {
                 return res.json({ pager, events: pageCount.docs });
             }
         })
-    });
+});
 
-/**
- * querying for `all` {} items in `MyModel`
- * paginating by second page, 10 items per page (10 results, page 2)
- 
-
-}**/
+router.get('/events/:id', (req, res) => {
+    const id = req.params.id
+        Event.findById(id, (err, result) => {
+            if (err)
+                res.status(401).send(err);
+            else {
+                res.status(200).send(result);
+            }
+        })
+})
 
   router.get('/special', tokenVerify.verifiedToken ,(req, res) => {
     const pageq = parseInt(req.query.page) || 1;

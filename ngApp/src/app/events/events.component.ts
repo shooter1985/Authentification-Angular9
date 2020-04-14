@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EventService } from '../service/event.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-events',
@@ -21,7 +21,8 @@ export class EventsComponent implements OnInit {
     endIndex: 9,
     pages: [ 1 ]
   }
-  constructor(private _event: EventService, private route: ActivatedRoute) {
+  constructor(private _event: EventService, private router: Router, private route: ActivatedRoute) {
+    console.log(new Date())
    }
 
   ngOnInit(): void {
@@ -39,6 +40,10 @@ export class EventsComponent implements OnInit {
       err => console.log(err)
 
     );
+  }
+
+  viewDetails(event){
+    this.router.navigate(['./', event._id], { relativeTo: this.route });
   }
 
 }
