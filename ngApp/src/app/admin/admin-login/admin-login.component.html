@@ -1,0 +1,33 @@
+<div class="class container">
+
+    <div class="col-md-12 mt-1 mx-auto text-center" *ngIf="msgError">
+        <div class="alert alert-danger" role="alert">
+            <strong> {{messageError}} </strong>
+            <button type="button" class="close" (click)="alertDissmiss()" aria-label="Close">
+                <span aria-hidden="true"> &times;</span>
+            </button>
+        </div>
+    </div>
+
+    <form class="form-signin"  #loginForm="ngForm" novalidate (ngSubmit)="loginUser()">
+      
+        <div class="form-label-group">
+          <input [(ngModel)]="loginUserData.email" #email="ngModel" email="true" type="email"
+          id="inputEmail" class="form-control" placeholder="Email address" name="email"
+          [class.is-invalid]="email.invalid && email.touched" required autofocus >
+          <label for="inputEmail">Email address</label>
+        </div>
+      
+        <div class="form-label-group">
+          <input [(ngModel)]="loginUserData.password" #password="ngModel" type="password" 
+          name="password" id="inputPassword" class="form-control" placeholder="Password"
+          [class.is-invalid] = "password.invalid && password.touched" required>
+          <label for="inputPassword">Password</label>
+        </div> 
+
+        <button [disabled] = "loginForm.form.invalid" 
+        class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      </form>
+</div>
+
+

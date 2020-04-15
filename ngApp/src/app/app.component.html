@@ -10,9 +10,15 @@
         <a class="nav-link" routerLink="events" routerLinkActive="active">Events <span class="sr-only">(current)</span></a>
       </li>
 
+      
       <li class="nav-item">
         <a class="nav-link" routerLink="/special" routerLinkActive="active">Members <span class="sr-only">(current)</span></a>
       </li>
+
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/admin/login" routerLinkActive="active">Admin <span class="sr-only">(current)</span></a>
+      </li>
+
     </ul>
 
     <ul class="navbar-nav">
@@ -36,10 +42,8 @@
 <div class="container-fluid">
   <router-outlet></router-outlet>
 </div>
+<div class="container-fluid">
+  <app-footer></app-footer>
+</div>
 
-<!-- Footer -->
-<footer class="page-footer font-small bg-dark p-4">
-  <div class="footer-copyright text-center text-white">© 2020 Copyright:
-    <a href="https://mdbootstrap.com/"> MDBootstrap.com</a>
-  </div>
-</footer>
+
