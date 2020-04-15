@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from 'src/app/models/User';
 
 @Component({
   selector: 'app-manage-events',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ManageEventsComponent implements OnInit {
 
+  registerUserData = new User()
+  messageError = ""
+  msgError = false
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  registerEvent(){
+
+  }
+
+  alertDissmiss(){
+
   }
 
 }

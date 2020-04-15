@@ -1,19 +1,20 @@
-<div class="row mt-4">
-    <ul class="nav nav-pills">
+<div class="row mt-4 font-weight-bold">
+    <ul class="nav nav-pills mr-auto">
         <li class="nav-item">
           <a class="nav-link" routerLink="create" routerLinkActive="active" >Create an Event</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="dashbord" routerLinkActive="active">Dashbord</a>
         </li>
+    </ul>
+    <ul class="nav justify-content-end">
         <li class="nav-item">
-          <a class="nav-link" routerLink>Link</a>
+            <a class="nav-link" routerLink (click) = "logout()">Logout</a>
         </li>
-      </ul>
+    </ul>
 </div>
     <hr>
 
-<div class="row mt-3">
-
+<div class="container-fluid">
     <router-outlet></router-outlet>
 </div>

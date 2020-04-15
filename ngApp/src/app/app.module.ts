@@ -10,9 +10,6 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { EventsComponent } from './events/events.component';
 import { SpecialEventsComponent } from './special-events/special-events.component';
-import { AuthService } from './service/auth.service';
-import { EventService } from './service/event.service';
-import { AuthGuard } from './auth/auth.guard';
 import { TokenInterceptorService } from './service/token-interceptor.service';
 import { DetailsComponent } from './events/details/details.component';
 import { FooterComponent } from './footer/footer.component';
@@ -33,7 +30,7 @@ import { FooterComponent } from './footer/footer.component';
     HttpClientModule, 
     AppRoutingModule
   ],
-  providers: [AuthService, EventService, AuthGuard, 
+  providers: [ 
   {
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptorService,
