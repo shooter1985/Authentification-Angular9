@@ -3,7 +3,6 @@ import { EventService } from '../service/event.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 
-
 @Component({
   selector: 'app-special-events',
   templateUrl: './special-events.component.html',
@@ -45,6 +44,14 @@ export class SpecialEventsComponent implements OnInit {
       }
 
     );
+  }
+
+  viewDetails(special){ 
+    this._router.navigate(['/events', special._id]);
+  }
+
+  getImage(image){
+    return this._event.getImages(image)
   }
 
 }

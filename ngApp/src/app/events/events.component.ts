@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EventService } from '../service/event.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { GlobalConstants } from '../common/global-constants';
 
 @Component({
   selector: 'app-events',
@@ -45,5 +46,9 @@ export class EventsComponent implements OnInit {
   viewDetails(event){
     this.router.navigate(['./', event._id], { relativeTo: this.route });
   }
+
+  getImage(image){
+    return this._event.getImages(image)
+    }
 
 }

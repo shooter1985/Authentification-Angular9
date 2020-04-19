@@ -3,7 +3,7 @@
     <div class="col-md-4 mb-3" style="cursor: pointer;" *ngFor="let event of events" (click) = "viewDetails(event)">
         <div class="card ovf-hidden">
             <div class="view overlay zoom">
-              <img class="card-img-top img-fluid" src="./assets/images/event1.jpeg" alt="Card image cap">
+              <img class="card-img-top img-fluid" [src]="getImage(event.image)" alt="Card image cap">
             </div>
 
             <div class="card-body">

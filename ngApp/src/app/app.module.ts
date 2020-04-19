@@ -36,6 +36,6 @@ import { FooterComponent } from './footer/footer.component';
     useClass: TokenInterceptorService,
     multi: true
   }],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent] 
 })
 export class AppModule { }

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/models/User';
+import { Event } from 'src/app/models/Event';
+import { AdminServiceService } from '../servise/admin-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-manage-events',
@@ -8,16 +10,42 @@ import { User } from 'src/app/models/User';
 })
 export class ManageEventsComponent implements OnInit {
 
-  registerUserData = new User()
+  eventData = new Event()
+  imageVal = ''
+  uploadData = new FormData();
   messageError = ""
   msgError = false
-  constructor() { }
+  image: File
+  constructor(private _adminService: AdminServiceService, private router: Router) { }
 
   ngOnInit(): void {
+    this.eventData.user = localStorage.getItem('tokenAdmin')
+    this.eventData.startDate = new Date().toISOString().split('T')[0];
+    this.eventData.endDate = new Date().toISOString().split('T')[0];
   }
 
   registerEvent(){
+    const formData = new FormData()
+    formData.append('file',this.image)
+    this.eventData.startDate = new Date(this.eventData.startDate)
+    this.eventData.endDate = new Date(this.eventData.endDate)
+    formData.append('eventData', JSON.stringify(this.eventData))
+    this._adminService.saveEvent(formData).subscribe(
+      res => {
+        console.log(res)
+      },
+      err => {
+        console.log(err)
+      }
+    )
+  }
 
+  onFileChanged(event){
+    this.imageVal = event.target.files[0].name
+    if(event.target.files.length > 0) {
+      let file = event.target.files[0];
+      this.image = file;
+    }
   }
 
   alertDissmiss(){

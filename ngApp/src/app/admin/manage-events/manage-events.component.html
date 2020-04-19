@@ -13,87 +13,92 @@
                 <h3 class="mb-0">Create un Event</h3>
             </div>
             <div class="card-body">
-                <form class="form" #eventForm="ngForm" novalidate (ngSubmit)="registerEvent()">
-                    <div class="form-row">
-                        <div class="col-md-4 mb-3">
-                          <label class=" font-weight-bold" for="pre">Prénom</label>
-                          <input type="text" [(ngModel)]="registerUserData.prenom" #prenom="ngModel" name="prenom"
-                                [class.is-invalid]="prenom.invalid && prenom.touched" class="form-control" id="pre" placeholder="Ton prénom" required>
-                          <div *ngIf="prenom.invalid && (prenom.dirty || prenom.touched)" class="text-danger">
-                            <small> Fournir un prenom</small>
-                          </div>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label class=" font-weight-bold" for="validationCustom02">Nom</label>
-                            <input type="text" [(ngModel)]="registerUserData.nom" #nom="ngModel" name="nom" class="form-control" 
-                                [class.is-invalid]="nom.invalid && nom.touched" id="validationCustom02" placeholder="Ton nom" required>
-                            <div *ngIf="nom.invalid && (nom.dirty || nom.touched)" class="text-danger">
-                                <small>Fournir un Nom </small>
-                            </div>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                          <label class=" font-weight-bold" for="validationCustomUsername">Adresse Mail</label>
-                          <div class="input-group">
-                            <div class="input-group-prepend">
-                              <span class="input-group-text" id="inputGroupPrepend">@</span>
-                            </div>
-							<input [(ngModel)]="registerUserData.email" #email="ngModel" email="true" type="email" class="form-control" name="email" 
-								[class.is-invalid]="email.invalid && email.touched" id="validationCustomUsername" placeholder="Ton email" aria-describedby="inputGroupPrepend" required>
-							<div *ngIf="email.invalid && email.touched" class="text-danger">
-                            	<small>Votre email est erroné</small> 
-                            </div>
-                          </div>
-                        </div>
-                    </div>
-
-
+                <form class="form" #eventForm="ngForm" novalidate enctype="multipart/form-data" (ngSubmit)="registerEvent()">
                     <div class="form-row">
                         <div class="col-md-6 mb-3">
-                          <label class=" font-weight-bold" for="validationCustom03">Password</label>
-						  <input type="password" [(ngModel)]="registerUserData.password" #password="ngModel" name="password" 
-							[class.is-invalid]="password.invalid && password.touched" class="form-control" id="validationCustom03" placeholder="Votre password" required>
-                          <div *ngIf="password.invalid && password.touched" class="text-danger">
-                            <small>Entrer password</small> 
+                          <label class=" font-weight-bold" for="pre">Nom</label>
+                          <input type="text" [(ngModel)]="eventData.name " #name="ngModel" name="name"
+                                [class.is-invalid]="name.invalid && name.touched" class="form-control" id="pre" placeholder="event name" required>
+                          <div *ngIf="name.invalid && (name.dirty || name.touched)" class="text-danger">
+                            <small> Fournir un nom </small>
                           </div>
                         </div>
                         <div class="col-md-6 mb-3">
-                          <label class=" font-weight-bold" for="validationCustom04">Confirm Password</label>
-                          <input type="password" [(ngModel)]="registerUserData.confirm_password" [class.is-invalid]="confirm_password.invalid && confirm_password.touched" #confirm_password="ngModel" name="confirm_password" class="form-control" id="validationCustom04" placeholder="Confirmer votre password" required>
-						</div>
-						<div *ngIf="password.invalid && password.touched" class="text-danger">
-                            <small>confirmer password</small> 
-                          </div>
+                            <label class=" font-weight-bold" for="validationCustom02">Tarif</label>
+                            <input type="text" [(ngModel)]="eventData.tarif" #tarif="ngModel" name="tarif" class="form-control" 
+                                [class.is-invalid]="tarif.invalid && tarif.touched" id="validationCustom02" placeholder="vos trifs" required>
+                            <div *ngIf="tarif.invalid && (tarif.dirty || tarif.touched)" class="text-danger">
+                                <small>Fournir des tarif </small>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-row">
                         <div class="col-md-6 mb-3">
-                          <label class=" font-weight-bold" for="validationCustom03">Adresse</label>
-						  <input [(ngModel)]="registerUserData.adresse" #adresse="ngModel" name="adresse" type="text" 
-						  	[class.is-invalid]="adresse.invalid && adresse.touched" class="form-control" id="validationCustom03" placeholder="Votre adresse" required>
-                          <div *ngIf="adresse.invalid && (adresse.dirty || adresse.touched)" class="text-danger">
-                            <small>Fournir votre adresse.</small> 
+                          <label class=" font-weight-bold" for="startDate">Start date</label>
+                          <input type="date" [(ngModel)]="eventData.startDate" #startDate="ngModel" name="startDate"
+                            [class.is-invalid]="startDate.invalid && startDate.touched" class="form-control" id="startDay" placeholder="start date" required>
+                          <div *ngIf="startDate.invalid && (startDate.dirty || startDate.touched)" class="text-danger">
+                            <small> Renseigner ce champ </small>
                           </div>
                         </div>
-                        <div class="col-md-3 mb-3">
-                          <label class=" font-weight-bold" for="validationCustom04">Ville</label>
-						  <input [(ngModel)]="registerUserData.ville" #ville="ngModel" name="ville" 
-						  [class.is-invalid]="ville.invalid && ville.touched" type="text" class="form-control" id="validationCustom04" placeholder="Ville" required>
-                          <div *ngIf="ville.invalid && (ville.dirty || ville.touched)" class="text-danger">
-                            <small>Fournir votre ville</small> .
-                          </div>
+                        <div class="col-md-6 mb-3">
+                            <label class=" font-weight-bold" for="endDate">End date</label>
+                            <input type="date" [(ngModel)]="eventData.endDate" #endDate="ngModel" name="endDate"
+                                  [class.is-invalid]="endDate.invalid && endDate.touched" class="form-control" id="endDate" placeholder="end date" required>
+                            <div *ngIf="endDate.invalid && (endDate.dirty || endDate.touched)" class="text-danger">
+                              <small> Renseigner ce champ </small>
+                            </div>
                         </div>
-                        <div class="col-md-3 mb-3">
-                          <label class="font-weight-bold" for="validationCustom05">Code Postal</label>
-						  <input [(ngModel)]="registerUserData.postal" #postal ="ngModel" name="postal" 
-						  [class.is-invalid]="postal.invalid && postal.touched" type="number" pattern="^\d{5}$" class="form-control" id="validationCustom05" placeholder="Code postal" required>
-                          <div *ngIf="postal.errors && (postal.invalid && postal.touched)" class="text-danger">
-							<small *ngIf="postal.errors.required"> Fournir un code postal</small>
-							<small *ngIf="postal.errors.pattern">Le code postal doit avoir 5 chiffres</small>
-						  </div>
-						  
-						</div>
                     </div>
 
+                    <div class="form-row">
+                        <div class="col-md-5 mb-3">
+                          <label class=" font-weight-bold" for="localisation">Localisation</label>
+                          <input type="text" [(ngModel)]="eventData.localisation " #localisation="ngModel" name="localisation"
+                                [class.is-invalid]="localisation.invalid && localisation.touched" class="form-control" id="pre" placeholder="event localisation" required>
+                          <div *ngIf="localisation.invalid && (localisation.dirty || localisation.touched)" class="text-danger">
+                            <small> Fournir un nom </small>
+                          </div>
+                        </div>
+                        <div class="col-md-5 mb-3">
+                            <label class=" font-weight-bold" for="infoPratique">Infos pratique</label>
+                            <textarea type="text" [(ngModel)]="eventData.infoPratique" #infoPratique="ngModel" name="infoPratique" class="form-control" 
+                                id="infoPratique" placeholder="Infos pratique">
+                            </textarea>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" [(ngModel)]="eventData.special" #special="ngModel" class="custom-control-input" name="special" id="customCheck1">
+                                <label class="custom-control-label font-weight-bold" for="customCheck1">Special event</label>
+                              </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-md-12 mb-3">
+                          <label class=" font-weight-bold" for="validationCustom03">Description</label>
+						  <textarea [(ngModel)]="eventData.description" #description="ngModel" name="description" 
+                            [class.is-invalid]="description.invalid && description.touched" class="form-control" id="validationCustom03" placeholder="Votre description" required>
+                            </textarea>
+                          <div *ngIf="description.invalid && description.touched" class="text-danger">
+                            <small>Entrer une description</small> 
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <span class="text-success p-2">{{imageVal}}</span>
+                            <div class="custom-file">
+                               
+                                <input type="file" #file class="custom-file-input" name="image" id="customFile" (change)="onFileChanged($event)"
+                                  required> 
+                                <label class="custom-file-label" for="customFile">Choisir une image</label>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <button [disabled] = "eventForm.form.invalid" type="submit" class="btn btn-primary float-right btn-lg btn-block">Register</button>
                 </form>
             </div>

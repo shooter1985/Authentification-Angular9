@@ -18,7 +18,7 @@ import { TokenInterceptorService } from './servise/token-interceptor.service';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
-      multi: false
+      multi: true
     }],
   imports: [
     CommonModule,

@@ -43,4 +43,8 @@ export class DetailsComponent implements OnInit {
     )
   }
 
+  getImage(image){
+    return this._eventService.getImages(image)
+  }
+
 }

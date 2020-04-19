@@ -14,7 +14,9 @@ const eventSchema = new Schema({
     localisation: String,
     tarif: String,
     infoPratique: String,
-    author: { type: Schema.Types.ObjectId, ref: 'User' },
+    special: Boolean,
+    image: String,
+    user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
 });
 
 eventSchema.plugin(mongoosePaginate);

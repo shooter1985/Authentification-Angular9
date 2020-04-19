@@ -3,14 +3,15 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { User } from '../models/User';
+import { GlobalConstants } from '../common/global-constants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private _registerUrl = "http://localhost:3000/api/register"
-  private _loginUrl = "http://localhost:3000/api/login"
+  private _registerUrl = `${GlobalConstants.apiURL}api/register`
+  private _loginUrl = `${GlobalConstants.apiURL}api/login`
   constructor(private http: HttpClient, private _router: Router) { }
 
   registerUser(user:User){
