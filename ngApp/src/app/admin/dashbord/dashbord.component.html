@@ -1,1 +1,53 @@
-<p>dashbord works!</p>
+<nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand"></a>
+    <div class="form-inline">
+      <input class="form-control mr-sm-2" [(ngModel)]="query" (ngModelChange)="this.userQuery.next($event)" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0"  type="submit">Search</button>
+    </div>
+</nav>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Event name</th>
+            <th>date start</th>
+            <th>Localisation</th>
+            <th>tarif</th>
+            <th>Info pratique</th>
+            <th>Event type</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let event of events">
+            <td>{{event.name}}</td>
+            <td>{{event.startDate | date : 'dd/MM/yyyy'}}</td>
+            <td>{{event.localisation}}</td>
+            <td>{{event.tarif}}</td>
+            <td>{{event.infoPratique}}</td>
+            <td><span *ngIf="event.special; else elseBlock">Special Event</span>
+                <ng-template #elseBlock>Public Event</ng-template>
+            </td>
+        </tr>          
+    </tbody>
+</table>
+
+<div class="col-md-10 mx-auto mt-5" *ngIf="events.length > 0">
+    <nav aria-label="Page navigation example">
+        <ul *ngIf="pager.pages && pager.pages.length" class="pagination justify-content-center pagination-lg">
+            <li [ngClass]="{disabled:pager.currentPage === 1}" class="page-item first-item">
+                <a routerLink = '/admin/dashbord' [queryParams]="{ page: 1 }" class="page-link">First</a>
+            </li>
+            <li [ngClass]="{disabled:pager.currentPage === 1}" class="page-item previous-item">
+                <a routerLink = '/admin/dashbord' [queryParams]="{ page: pager.currentPage - 1 }" class="page-link">Previous</a>
+            </li>
+            <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}" class="page-item number-item">
+                <a routerLink = '/admin/dashbord' [queryParams]="{ page: page }" class="page-link">{{page}}</a>
+            </li>
+            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}" class="page-item next-item">
+                <a routerLink = '/admin/dashbord' [queryParams]="{ page: pager.currentPage + 1 }" class="page-link">Next</a>
+            </li>
+            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}" class="page-item last-item">
+                <a routerLink = 'admin/dashbord' [queryParams]="{ page: pager.totalPages }" class="page-link">Last</a>
+            </li>
+        </ul>
+    </nav>
+</div>

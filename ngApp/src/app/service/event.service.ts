@@ -11,7 +11,9 @@ export class EventService {
 
   private _eventsUrl = `${GlobalConstants.apiURL}event/events?page=`
   private _eventsDetail = `${GlobalConstants.apiURL}event/events/`
+  private _eventsByUser = `${GlobalConstants.apiURL}event/events_by_user/?page=`
   private _specialEventsUrl = `${GlobalConstants.apiURL}event/special?page=`
+  private _searchEvents = `${GlobalConstants.apiURL}event/search_event?query=`
   private _eventGetImageUrl = `${GlobalConstants.apiURL}event/getimage/`
 
   constructor(private http: HttpClient) { }
@@ -33,5 +35,13 @@ export class EventService {
       return `${GlobalConstants.apiURL}${image}`
     else 
       return "../assets/images/event1.jpeg"
+  }
+
+  getEventsByUser(page, user): Observable<any>{
+    return this.http.post<any>(this._eventsByUser+page, user)
+  }
+
+  searchEvents(query, user): Observable<any>{
+    return this.http.post<any>(this._searchEvents+query, user)
   }
 }

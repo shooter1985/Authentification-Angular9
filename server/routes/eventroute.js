@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken')
 const fs = require('fs')
 const tokenVerify = require('../middlewarefunction/verifytoken')
 const paginate = require('jw-paginate')
-const path = require("path");
+//const path = require("path");
 const router = express.Router();
 var cpUpload = tokenVerify.upload.single('file')
 
@@ -22,6 +22,36 @@ router.get('/events', (req, res) => {
                 return res.json({ pager, events: pageCount.docs });
             }
         })
+});
+
+router.post('/events_by_user',tokenVerify.verifyTokenAdmin, (req, res) => {
+    const pageq = parseInt(req.query.page) || 1;
+    Event.paginate({user: req.userId}, { page: pageq, limit: 10 }, function(error, pageCount) {
+        if (error) {
+          console.error('error: ', error);
+        } else {
+            // get pager object for specified page
+            const pager = paginate(pageCount.total, pageq);
+            // get page of items from items array
+            return res.json({ pager, events: pageCount.docs });
+        }
+    })
+});
+
+router.post('/search_event',tokenVerify.verifyTokenAdmin, (req, res) => {
+    const pageq = parseInt(req.query.page) || 1;
+    const query  = req.query.query
+    const userRegex = new RegExp(query, 'i')
+    Event.paginate({user: req.userId, name: userRegex}, { page: pageq, limit: 10 }, function(error, pageCount) {
+        if (error) {
+          console.error('error: ', error);
+        } else {
+            // get pager object for specified page
+            const pager = paginate(pageCount.total, pageq);
+            // get page of items from items array
+            return res.json({ pager, events: pageCount.docs });
+        }
+    })
 });
 
 router.get('/events/:id', (req, res) => {
