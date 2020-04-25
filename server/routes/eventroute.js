@@ -65,6 +65,17 @@ router.get('/events/:id', (req, res) => {
         })
 })
 
+router.delete('/delete/:id', (req, res) => {
+    const id = req.params.id
+    Event.deleteOne({_id: id}, (err, result) => {
+        if(err)
+            res.status(401).send(err);
+        else{
+            res.status(200).send(result);
+        }
+    })
+});
+
 router.get('/getimage/uploads/:id', (req, res) => {
     const image = req.params.id
     console.log(image)

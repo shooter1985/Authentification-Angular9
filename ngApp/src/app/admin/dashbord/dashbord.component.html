@@ -14,17 +14,26 @@
             <th>tarif</th>
             <th>Info pratique</th>
             <th>Event type</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let event of events">
-            <td>{{event.name}}</td>
-            <td>{{event.startDate | date : 'dd/MM/yyyy'}}</td>
-            <td>{{event.localisation}}</td>
-            <td>{{event.tarif}}</td>
-            <td>{{event.infoPratique}}</td>
-            <td><span *ngIf="event.special; else elseBlock">Special Event</span>
+            <td class="align-middle">{{event.name}}</td>
+            <td class="align-middle">{{event.startDate | date : 'dd/MM/yyyy'}}</td>
+            <td class="align-middle">{{event.localisation}}</td>
+            <td class="align-middle">{{event.tarif}}</td>
+            <td class="align-middle">{{event.infoPratique}}</td>
+            <td class="align-middle"><span *ngIf="event.special; else elseBlock">Special Event</span>
                 <ng-template #elseBlock>Public Event</ng-template>
+            </td>
+            <td class="align-middle">
+                <button type="button" data-toggle="modal" data-target="#deleteModal" (click) = "showModalEvent(event._id)" class="btn btn-outline-danger">
+                    <svg class="bi bi-trash" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5.5 5.5A.5.5 0 016 6v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm2.5 0a.5.5 0 01.5.5v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm3 .5a.5.5 0 00-1 0v6a.5.5 0 001 0V6z"/>
+                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 01-1 1H13v9a2 2 0 01-2 2H5a2 2 0 01-2-2V4h-.5a1 1 0 01-1-1V2a1 1 0 011-1H6a1 1 0 011-1h2a1 1 0 011 1h3.5a1 1 0 011 1v1zM4.118 4L4 4.059V13a1 1 0 001 1h6a1 1 0 001-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" clip-rule="evenodd"/>
+                    </svg>
+                </button>
             </td>
         </tr>          
     </tbody>
@@ -50,4 +59,27 @@
             </li>
         </ul>
     </nav>
+</div>
+
+<!-- Modal -->
+<div *ngIf="showModal">
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Delete Event</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+            Do you want to delete the event ???
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" (click) = "deleteEvent()">Delete</button>
+            </div>
+        </div>
+        </div>
+    </div>
 </div>

@@ -26,6 +26,8 @@ export class DashbordComponent implements OnInit {
   user = {token:''}
   query : string
   userQuery = new Subject<string>();
+  showModal: boolean = false
+  id: string
   constructor(private _event: EventService, private router: Router, private route: ActivatedRoute) {
     
     this.userQuery.pipe(
@@ -66,6 +68,27 @@ export class DashbordComponent implements OnInit {
     )
   }
 
+  showModalEvent(id){
+    this.showModal = true
+    this.id = id
+  }
+
+  deleteEvent(){
+    this.showModal = false
+    this._event.deleteEvent(this.id).subscribe(
+      res => {
+        for (let i = 0; i < this.events.length; i++) {
+          const element = this.events[i]._id;
+          if(element === this.id){
+            this.events.splice(i, 1)
+          }
+        }
+      },
+      err => {
+        console.log(err)
+      }
+    )
+  }
 
     
 
