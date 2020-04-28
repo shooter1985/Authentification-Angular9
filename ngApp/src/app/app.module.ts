@@ -13,6 +13,7 @@ import { SpecialEventsComponent } from './special-events/special-events.componen
 import { TokenInterceptorService } from './service/token-interceptor.service';
 import { DetailsComponent } from './events/details/details.component';
 import { FooterComponent } from './footer/footer.component';
+import { ContactComponent } from './contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { FooterComponent } from './footer/footer.component';
     EventsComponent,
     SpecialEventsComponent,
     DetailsComponent,
-    FooterComponent
+    FooterComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,

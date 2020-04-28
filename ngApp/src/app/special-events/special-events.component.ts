@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EventService } from '../service/event.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-special-events',
@@ -30,7 +31,7 @@ export class SpecialEventsComponent implements OnInit {
 
   private loadPage(page) {
     // get page of items from api
-    this._event.getSpecialEvents(page).subscribe(
+    this._event.getSpecialEvents(page).pipe(take(1)).subscribe(
       res => {
               this.pager = res.pager;
               this.specialEvents = res.events;

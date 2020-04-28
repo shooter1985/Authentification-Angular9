@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Event } from 'src/app/models/Event';
 import { AdminServiceService } from '../servise/admin-service.service';
 import { Router } from '@angular/router';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-manage-events',
@@ -30,7 +31,7 @@ export class ManageEventsComponent implements OnInit {
     this.eventData.startDate = new Date(this.eventData.startDate)
     this.eventData.endDate = new Date(this.eventData.endDate)
     formData.append('eventData', JSON.stringify(this.eventData))
-    this._adminService.saveEvent(formData).subscribe(
+    this._adminService.saveEvent(formData).pipe(take(1)).subscribe(
       res => {
         console.log(res)
       },

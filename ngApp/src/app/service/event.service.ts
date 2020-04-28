@@ -16,6 +16,7 @@ export class EventService {
   private _searchEvents = `${GlobalConstants.apiURL}event/search_event?query=`
   private _eventGetImageUrl = `${GlobalConstants.apiURL}event/getimage/`
   private _deleteEvent = `${GlobalConstants.apiURL}event/delete/`
+  private _contactUrl = `${GlobalConstants.apiURL}event/contact`
 
   constructor(private http: HttpClient) { }
 
@@ -48,5 +49,9 @@ export class EventService {
 
   deleteEvent(id){
     return this.http.delete<Event>(this._deleteEvent+id)
+  }
+
+  sendEmail(contact){
+    return this.http.post<string>(this._contactUrl, contact)
   }
 }

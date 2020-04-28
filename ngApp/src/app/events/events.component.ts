@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EventService } from '../service/event.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalConstants } from '../common/global-constants';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-events',
@@ -32,7 +33,7 @@ export class EventsComponent implements OnInit {
 
   private loadPage(page) {
     // get page of items from api
-    this._event.getEvents(page).subscribe(
+    this._event.getEvents(page).pipe(take(1)).subscribe(
       res => {
               this.pager = res.pager;
               console.log(this.pager)

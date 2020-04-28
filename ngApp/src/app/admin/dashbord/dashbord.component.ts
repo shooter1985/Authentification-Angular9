@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { EventService } from 'src/app/service/event.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Observable, of, Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { Observable, of,Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashbord',
@@ -46,7 +46,7 @@ export class DashbordComponent implements OnInit {
   }
 
   private loadPage(page, user) {
-    this._event.getEventsByUser(page, user).subscribe(
+    this._event.getEventsByUser(page, user).pipe(take(1)).subscribe(
       res => {
               this.pager = res.pager;
               this.events = res.events;
@@ -56,7 +56,7 @@ export class DashbordComponent implements OnInit {
   }
 
   searchEvent(){
-    this._event.searchEvents(this.query, this.user)
+    this._event.searchEvents(this.query, this.user).pipe(take(1))
     .subscribe(
       res => {
         this.pager = res.pager,
@@ -75,7 +75,7 @@ export class DashbordComponent implements OnInit {
 
   deleteEvent(){
     this.showModal = false
-    this._event.deleteEvent(this.id).subscribe(
+    this._event.deleteEvent(this.id).pipe(take(1)).subscribe(
       res => {
         for (let i = 0; i < this.events.length; i++) {
           const element = this.events[i]._id;

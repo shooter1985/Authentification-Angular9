@@ -1,6 +1,7 @@
 const express = require('express');
 const jwt = require('jsonwebtoken')
 const fs = require('fs')
+const sendMail = require('../middlewarefunction/sendMail')
 const tokenVerify = require('../middlewarefunction/verifytoken')
 const paginate = require('jw-paginate')
 //const path = require("path");
@@ -75,6 +76,11 @@ router.delete('/delete/:id', (req, res) => {
         }
     })
 });
+
+router.post('/contact',sendMail, (req, res) => {
+    console.log(req)
+});
+
 
 router.get('/getimage/uploads/:id', (req, res) => {
     const image = req.params.id

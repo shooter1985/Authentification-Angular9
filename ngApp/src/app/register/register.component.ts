@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 
 import { AuthService } from '../service/auth.service';
 import { User } from '../models/User';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-register',
@@ -23,7 +24,7 @@ export class RegisterComponent implements OnInit {
 
   registerUser(){
     console.log(this.registerUserData)
-    this._auth.registerUser(this.registerUserData).subscribe(
+    this._auth.registerUser(this.registerUserData).pipe(take(1)).subscribe(
       res => {
         console.log(res)
         localStorage.setItem('token', res.token)

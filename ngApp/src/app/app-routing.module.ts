@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthGuard } from './auth/auth.guard';
 import { DetailsComponent } from './events/details/details.component';
+import { ContactComponent } from './contact/contact.component';
 
 
 const routes: Routes = [
@@ -34,6 +35,10 @@ const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent
+  },
+  {
+    path: 'contact',
+    component: ContactComponent
   },
   {
     path: 'admin',
