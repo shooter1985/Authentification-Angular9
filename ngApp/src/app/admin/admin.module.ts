@@ -1,6 +1,11 @@
 import { NgModule } from '@angular/core';
+
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { BsDatepickerModule, BsLocaleService } from 'ngx-bootstrap/datepicker'
+import { defineLocale } from 'ngx-bootstrap/chronos';
+import { frLocale } from 'ngx-bootstrap/locale';
+defineLocale('fr', frLocale);
 
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin/admin.component';
@@ -9,7 +14,6 @@ import { ManageEventsComponent } from './manage-events/manage-events.component';
 import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptorService } from './servise/token-interceptor.service';
-
 
 
 @NgModule({
@@ -23,7 +27,12 @@ import { TokenInterceptorService } from './servise/token-interceptor.service';
   imports: [
     CommonModule,
     AdminRoutingModule,
-    FormsModule
+    FormsModule,
+    BsDatepickerModule.forRoot()
   ]
 })
-export class AdminModule { }
+export class AdminModule {
+  constructor( private bsLocaleService: BsLocaleService){
+    this.bsLocaleService.use('fr');//fecha en español, datepicker
+  }
+}

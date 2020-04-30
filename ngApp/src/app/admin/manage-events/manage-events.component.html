@@ -14,7 +14,8 @@
             </div>
             <div class="card-body">
                 <form class="form" #eventForm="ngForm" novalidate enctype="multipart/form-data" (ngSubmit)="registerEvent()">
-                    <div class="form-row">
+                    
+                  <div class="form-row">
                         <div class="col-md-6 mb-3">
                           <label class=" font-weight-bold" for="pre">Nom</label>
                           <input type="text" [(ngModel)]="eventData.name " #name="ngModel" name="name"
@@ -36,16 +37,18 @@
                     <div class="form-row">
                         <div class="col-md-6 mb-3">
                           <label class=" font-weight-bold" for="startDate">Start date</label>
-                          <input type="date" [(ngModel)]="eventData.startDate" #startDate="ngModel" name="startDate"
-                            [class.is-invalid]="startDate.invalid && startDate.touched" class="form-control" id="startDay" placeholder="start date" required>
+                          <input type="text" bsDatepicker [(ngModel)]="eventData.startDate" #startDate="ngModel" name="startDate"
+                            [class.is-invalid]="startDate.invalid && startDate.touched" class="form-control" id="startDay" placeholder="start date" required
+                            [bsConfig]="bsConfig" >
                           <div *ngIf="startDate.invalid && (startDate.dirty || startDate.touched)" class="text-danger">
                             <small> Renseigner ce champ </small>
                           </div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label class=" font-weight-bold" for="endDate">End date</label>
-                            <input type="date" [(ngModel)]="eventData.endDate" #endDate="ngModel" name="endDate"
-                                  [class.is-invalid]="endDate.invalid && endDate.touched" class="form-control" id="endDate" placeholder="end date" required>
+                            <input type="text" bsDatepicker [(ngModel)]="eventData.endDate" #endDate="ngModel" name="endDate"
+                                  [class.is-invalid]="endDate.invalid && endDate.touched" class="form-control" id="endDate" placeholder="end date" required
+                                  [bsConfig]="bsConfig">
                             <div *ngIf="endDate.invalid && (endDate.dirty || endDate.touched)" class="text-danger">
                               <small> Renseigner ce champ </small>
                             </div>

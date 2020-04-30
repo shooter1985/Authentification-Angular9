@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+
 import { Event } from 'src/app/models/Event';
 import { AdminServiceService } from '../servise/admin-service.service';
 import { Router } from '@angular/router';
@@ -17,19 +18,24 @@ export class ManageEventsComponent implements OnInit {
   messageError = ""
   msgError = false
   image: File
+
+  bsConfig = {
+    isAnimated: true,
+    dateInputFormat: 'DD/MM/YYYY'
+  }
   constructor(private _adminService: AdminServiceService, private router: Router) { }
 
   ngOnInit(): void {
     this.eventData.user = localStorage.getItem('tokenAdmin')
-    this.eventData.startDate = new Date().toISOString().split('T')[0];
-    this.eventData.endDate = new Date().toISOString().split('T')[0];
+    this.eventData.startDate = new Date();
+    this.eventData.endDate = new Date(); 
   }
 
   registerEvent(){
+    console.log(this.eventData);
+    return false
     const formData = new FormData()
     formData.append('file',this.image)
-    this.eventData.startDate = new Date(this.eventData.startDate)
-    this.eventData.endDate = new Date(this.eventData.endDate)
     formData.append('eventData', JSON.stringify(this.eventData))
     this._adminService.saveEvent(formData).pipe(take(1)).subscribe(
       res => {
