@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EventService } from 'src/app/service/event.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Observable, of,Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, take } from 'rxjs/operators';
 
 @Component({
@@ -28,21 +28,23 @@ export class DashbordComponent implements OnInit {
   userQuery = new Subject<string>();
   showModal: boolean = false
   id: string
-  constructor(private _event: EventService, private router: Router, private route: ActivatedRoute) {
-    
-    this.userQuery.pipe(
-      debounceTime(400),
-      distinctUntilChanged()
-    ).subscribe(
-      value => this.searchEvent()
-
-    )
-  }
-
+  constructor(private _event: EventService, private router: Router, private route: ActivatedRoute) { }
+  
   ngOnInit(): void {
     this.user.token = localStorage.getItem('tokenAdmin')
     this.route.queryParams.subscribe(x => this.loadPage(x.page || 1, this.user));
     
+    this.userQuery.pipe(
+      debounceTime(400),
+      distinctUntilChanged(),
+    ).subscribe(
+      value => this.searchEvent(value)
+
+    )
+  }
+
+  search(packageName: string){
+    this.userQuery.next(packageName)
   }
 
   private loadPage(page, user) {
@@ -55,8 +57,8 @@ export class DashbordComponent implements OnInit {
     );
   }
 
-  searchEvent(){
-    this._event.searchEvents(this.query, this.user).pipe(take(1))
+  searchEvent(value){
+    this._event.searchEvents(value, this.user).pipe(take(1))
     .subscribe(
       res => {
         this.pager = res.pager,
