@@ -39,12 +39,12 @@ export class EventService {
       return "../assets/images/event1.jpeg"
   }
 
-  getEventsByUser(page, user): Observable<any>{
-    return this.http.post<any>(this._eventsByUser+page, user)
+  getEventsByUser(page): Observable<any>{
+    return this.http.get<any>(this._eventsByUser+page)
   }
 
-  searchEvents(query, user): Observable<any>{
-    return this.http.post<any>(this._searchEvents+query, user)
+  searchEvents(query): Observable<any>{
+    return this.http.get<any>(this._searchEvents+query)
   }
 
   deleteEvent(id){

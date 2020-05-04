@@ -23,7 +23,7 @@ export class DashbordComponent implements OnInit {
     endIndex: 9,
     pages: [ 1 ]
   }
-  user = {token:''}
+
   query : string
   userQuery = new Subject<string>();
   showModal: boolean = false
@@ -31,8 +31,7 @@ export class DashbordComponent implements OnInit {
   constructor(private _event: EventService, private router: Router, private route: ActivatedRoute) { }
   
   ngOnInit(): void {
-    this.user.token = localStorage.getItem('tokenAdmin')
-    this.route.queryParams.subscribe(x => this.loadPage(x.page || 1, this.user));
+    this.route.queryParams.subscribe(x => this.loadPage(x.page || 1));
     
     this.userQuery.pipe(
       debounceTime(400),
@@ -47,8 +46,8 @@ export class DashbordComponent implements OnInit {
     this.userQuery.next(packageName)
   }
 
-  private loadPage(page, user) {
-    this._event.getEventsByUser(page, user).pipe(take(1)).subscribe(
+  private loadPage(page) {
+    this._event.getEventsByUser(page).pipe(take(1)).subscribe(
       res => {
               this.pager = res.pager;
               this.events = res.events;
@@ -58,7 +57,7 @@ export class DashbordComponent implements OnInit {
   }
 
   searchEvent(value){
-    this._event.searchEvents(value, this.user).pipe(take(1))
+    this._event.searchEvents(value).pipe(take(1))
     .subscribe(
       res => {
         this.pager = res.pager,

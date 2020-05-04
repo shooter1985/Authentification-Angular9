@@ -1,5 +1,4 @@
 const express = require('express');
-const jwt = require('jsonwebtoken')
 const fs = require('fs')
 const sendMail = require('../middlewarefunction/sendMail')
 const tokenVerify = require('../middlewarefunction/verifytoken')
@@ -25,7 +24,7 @@ router.get('/events', (req, res) => {
         })
 });
 
-router.post('/events_by_user',tokenVerify.verifyTokenAdmin, (req, res) => {
+router.get('/events_by_user',tokenVerify.verifiedToken, (req, res) => {
     const pageq = parseInt(req.query.page) || 1;
     Event.paginate({user: req.userId}, { page: pageq, limit: 10 }, function(error, pageCount) {
         if (error) {
@@ -39,7 +38,7 @@ router.post('/events_by_user',tokenVerify.verifyTokenAdmin, (req, res) => {
     })
 });
 
-router.post('/search_event',tokenVerify.verifyTokenAdmin, (req, res) => {
+router.get('/search_event',tokenVerify.verifiedToken, (req, res) => {
     const pageq = parseInt(req.query.page) || 1;
     const query  = req.query.query
     const userRegex = new RegExp(query, 'i')
@@ -119,14 +118,13 @@ router.post('/save', (req, res) => {
         } else {
             const reqBody = JSON.parse(req.body.eventData)
             //reqBody.image = req.file.path
-            tokenVerify.verifyAdmin(req,res, () => {
+            tokenVerify.verifiedToken(req,res, () => {
                 reqBody.user = req.userId
                 reqBody.image = req.file.filename
                 let eventData = new Event(reqBody)
 
                 eventData.save((err, event) => {
                     if(err){
-                        console.log(err)
                         res.status(401).send('Erreur du serveur')
                     } else {
                         res.status(200).send(event);

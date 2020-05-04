@@ -20,42 +20,6 @@ var verify = (req, res, next) => {
     })
 }
 
-var verifyTokenAdmin = (req, res, next) => {
-    if(!req.body.token)
-        return res.status(401).send('Unauthorized request1');
-    
-    let token = req.body.token
-    if(token === 'null')
-        return res.status(401).send('Unauthorized request2');
-
-    jwt.verify(token, process.env.SECRETKEY, (err, payload) => {
-        if(err) {
-            return res.status(401).send('Unauthorized request3');
-        } else {
-            req.userId = payload.subject
-            next()
-        }
-    })
-}
-
-var verifyAdmin = (req, res, next) => {
-const requser = JSON.parse(req.body.eventData)
-    if(!requser.user)
-        return res.status(401).send('Unauthorized request1');
-    
-    let token = requser.user
-    if(token === 'null')
-        return res.status(401).send('Unauthorized request2');
-
-    jwt.verify(token, process.env.SECRETKEY, (err, payload) => {
-        if(err) {
-            return res.status(401).send('Unauthorized request3');
-        } else {
-            req.userId = payload.subject
-            next()
-        }
-    })
-}
 
 const storage = multer.diskStorage({
     destination: (req, file , callback) => {
@@ -70,7 +34,5 @@ var upload = multer({ storage: storage })
 
 module.exports = {
         verifiedToken : verify,
-        verifyAdmin: verifyAdmin,
-        upload: upload,
-        verifyTokenAdmin: verifyTokenAdmin
+        upload: upload
     }

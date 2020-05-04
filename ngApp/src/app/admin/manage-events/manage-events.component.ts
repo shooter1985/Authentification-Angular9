@@ -26,14 +26,11 @@ export class ManageEventsComponent implements OnInit {
   constructor(private _adminService: AdminServiceService, private router: Router) { }
 
   ngOnInit(): void {
-    this.eventData.user = localStorage.getItem('tokenAdmin')
     this.eventData.startDate = new Date();
     this.eventData.endDate = new Date(); 
   }
 
   registerEvent(){
-    console.log(this.eventData);
-    return false
     const formData = new FormData()
     formData.append('file',this.image)
     formData.append('eventData', JSON.stringify(this.eventData))

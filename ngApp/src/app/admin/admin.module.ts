@@ -13,17 +13,11 @@ import { DashbordComponent } from './dashbord/dashbord.component';
 import { ManageEventsComponent } from './manage-events/manage-events.component';
 import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { TokenInterceptorService } from './servise/token-interceptor.service';
 
 
 @NgModule({
   declarations: [AdminComponent, DashbordComponent, ManageEventsComponent, AdminLoginComponent],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptorService,
-      multi: true
-    }],
+  providers: [],
   imports: [
     CommonModule,
     AdminRoutingModule,
@@ -33,6 +27,6 @@ import { TokenInterceptorService } from './servise/token-interceptor.service';
 })
 export class AdminModule {
   constructor( private bsLocaleService: BsLocaleService){
-    this.bsLocaleService.use('fr');//fecha en español, datepicker
+    this.bsLocaleService.use('fr');
   }
 }
