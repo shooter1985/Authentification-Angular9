@@ -1,30 +1,33 @@
-<div class="row mt-5">
-    <div class="col-md-12 mx-auto" *ngIf="msgError">
-        <div class="alert alert-danger" role="alert">
-            <strong> {{messageError}} </strong>
-            <button type="button" class="close" (click)="alertDissmiss()" aria-label="Close">
-                <span aria-hidden="true"> &times;</span>
-            </button>
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-8 mx-auto" *ngIf="msgError">
+            <div class="alert alert-danger" role="alert">
+                <strong> {{messageError}} </strong>
+                <button type="button" class="close" (click)="alertDissmiss()" aria-label="Close">
+                    <span aria-hidden="true"> &times;</span>
+                </button>
+            </div>
+        </div>
+        <div class="col-md-8 mx-auto">
+            <div class="card rounded-0">
+                <div class="card-header">
+                    <h3 class="mb-0">Login</h3>
+                </div>
+                <div class="card-body">
+                    <form class="form" #loginForm = "ngForm">
+                        <div class="form-group">
+                            <label for="mail">Email: </label>
+                            <input [(ngModel)]="loginUserData.email" id="mail" class="form-control rounded-0" email= true #email= "ngModel" [class.is-invalid]="email.touched && email.invalid" type="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="pass">Mot de passe: </label>
+                            <input [(ngModel)]="loginUserData.password" id="pass" class="form-control rounded-0" #password = "ngModel" [class.is-invalid]="password.invalid && password.touched" type="password" name="password" required>
+                        </div>
+                        <button type="submit" [disabled]="loginForm.form.invalid" class="btn btn-success float-right" (click) = "loginUser()">Login</button>
+                    </form>
+                </div>
+            </div>        
         </div>
     </div>
-    <div class="col-md-12 mx-auto">
-        <div class="card rounded-0">
-            <div class="card-header">
-                <h3 class="mb-0">Login</h3>
-            </div>
-            <div class="card-body">
-                <form class="form">
-                    <div class="form-group">
-                        <label for="my-input">Email: </label>
-                        <input [(ngModel)]="loginUserData.email" id="my-input" class="form-control rounded-0" type="text" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="my-input">Mot de passe: </label>
-                        <input [(ngModel)]="loginUserData.password" id="my-input" class="form-control rounded-0" type="password" name="password" required>
-                    </div>
-                    <button type="submit" class="btn btn-success float-right" (click) = "loginUser()">Login</button>
-                </form>
-            </div>
-        </div>        
-    </div>
 </div>
+
